@@ -31,9 +31,12 @@ const carousel = document.getElementById('carousel');
 let currentSlide = 0;
 const thumbsContainer = document.querySelector('.thumbs');
 
+
 document.querySelector('.btn.btn-primary').addEventListener('click', autoplay);
 document.querySelector('.btn.btn-danger').addEventListener('click', stopAutoplay);
 let autoplayInterval;
+
+
 
 // funzione per gestire l'autoplay
 function autoplay() {
@@ -44,6 +47,25 @@ function autoplay() {
 
 function stopAutoplay() {
   clearInterval(autoplayInterval);
+}
+
+// tasto reverse play
+document.querySelector('.btn.btn-warning').addEventListener('click', reverseAutoplay);
+
+// variabile per tenere traccia della direzione dell'autoplay
+let autoplayDirection = 1;
+
+// funzione per invertire l'autoplay
+function reverseAutoplay() {
+  autoplayDirection *= -1;
+  autoplay();
+}
+
+// funzione per cambiare slide ogni 3 secondi all'indietro
+function autoplay() {
+  setInterval(function() {
+	changeSlide(autoplayDirection);
+  }, 3000);
 }
 
 // funzione per creare slide
@@ -82,7 +104,7 @@ function showSlide(index) {
 function changeSlide(direction) {
 	currentSlide += direction;
 
-	// questo ciclo for serve a far scorrere tutte le slide, se l'indece esce dall'arry ritorno al primo o all'ultimo elemento
+	// questo ciclo for serve a far scorrere tutte le slide, se l'indece esce dall'array ritorno al primo o all'ultimo elemento
 	if (currentSlide < 0) {
 		currentSlide = images.length - 1;
 	} else if (currentSlide >= images.length) {

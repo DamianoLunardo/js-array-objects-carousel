@@ -31,6 +31,21 @@ const carousel = document.getElementById('carousel');
 let currentSlide = 0;
 const thumbsContainer = document.querySelector('.thumbs');
 
+document.querySelector('.btn.btn-primary').addEventListener('click', autoplay);
+document.querySelector('.btn.btn-danger').addEventListener('click', stopAutoplay);
+let autoplayInterval;
+
+// funzione per gestire l'autoplay
+function autoplay() {
+  autoplayInterval = setInterval(function() {
+    changeSlide(1);
+  }, 3000);
+}
+
+function stopAutoplay() {
+  clearInterval(autoplayInterval);
+}
+
 // funzione per creare slide
 function createSlide(index) {
 	const slide = document.createElement('div');
@@ -67,26 +82,25 @@ function showSlide(index) {
 function changeSlide(direction) {
 	currentSlide += direction;
 
-// questo ciclo for serve a far scorrere tutte le slide, se l'indece esce dall'arry ritorno al primo o all'ultimo elemento
+	// questo ciclo for serve a far scorrere tutte le slide, se l'indece esce dall'arry ritorno al primo o all'ultimo elemento
 	if (currentSlide < 0) {
 		currentSlide = images.length - 1;
 	} else if (currentSlide >= images.length) {
 		currentSlide = 0;
 	}
 
-// mostro la slide
-showSlide(currentSlide);
+	// mostro la slide
+	showSlide(currentSlide);
 };
 
 // slide di partenza
 showSlide(currentSlide);
 
 // autoplay ogni 3 secondi cambio slide
-function autoplay() {
-	changeSlide(1);
-};
-
-let autoplayInterval = setInterval(autoplay, 3000);
+//function autoplay() {
+//changeSlide(1);
+//};
+//let autoplayInterval = setInterval(autoplay, 3000);
 
 // creo miniature
 images.forEach((image, index) => {
@@ -99,4 +113,4 @@ images.forEach((image, index) => {
 
 	thumbContainer.appendChild(thumbImage);
 	thumbsContainer.appendChild(thumbContainer);
-  });
+});

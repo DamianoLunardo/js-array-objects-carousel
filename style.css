@@ -28,11 +28,11 @@
   color: gray;
 }
 
-.carousel-arrow-left {
+.position-left {
   left: 10px;
 }
 
-.carousel-arrow-right {
+.position-right {
   right: 10px;
 }
 

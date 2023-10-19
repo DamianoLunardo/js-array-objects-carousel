@@ -26,9 +26,12 @@ const images = [
 	},
 ]
 
+// logica per carosello, da inserimento in html a slide
 const carousel = document.getElementById('carousel');
 let currentSlide = 0;
+const thumbsContainer = document.querySelector('.thumbs');
 
+// funzione per creare slide
 function createSlide(index) {
 	const slide = document.createElement('div');
 	slide.classList.add('carousel-slide');
@@ -47,28 +50,47 @@ function createSlide(index) {
 
 	textContainer.appendChild(title);
 	textContainer.appendChild(text);
-
 	slide.appendChild(image);
 	slide.appendChild(textContainer);
 
+	// slide creata :)
 	return slide;
-}
+};
 
+// per slide carosello, mostro la slide, la svuoto e aggiungo la prossima
 function showSlide(index) {
 	carousel.innerHTML = '';
 	carousel.appendChild(createSlide(index));
-}
+};
 
+// navigazione tra le slide
 function changeSlide(direction) {
 	currentSlide += direction;
 
+// questo ciclo for serve a far scorrere tutte le slide, se l'indece esce dall'arry ritorno al primo o all'ultimo elemento
 	if (currentSlide < 0) {
 		currentSlide = images.length - 1;
 	} else if (currentSlide >= images.length) {
 		currentSlide = 0;
 	}
 
-	showSlide(currentSlide);
-}
-
+// mostro la slide
 showSlide(currentSlide);
+};
+
+// slide di partenza
+showSlide(currentSlide);
+
+
+// creo miniature
+images.forEach((image, index) => {
+	const thumbContainer = document.createElement('div');
+	thumbContainer.classList.add('thumb');
+	thumbContainer.onclick = () => showSlide(index);
+
+	const thumbImage = document.createElement('img');
+	thumbImage.src = image.image;
+
+	thumbContainer.appendChild(thumbImage);
+	thumbsContainer.appendChild(thumbContainer);
+  });

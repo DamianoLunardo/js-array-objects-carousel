@@ -81,6 +81,12 @@ showSlide(currentSlide);
 // slide di partenza
 showSlide(currentSlide);
 
+// autoplay ogni 3 secondi cambio slide
+function autoplay() {
+	changeSlide(1);
+};
+
+let autoplayInterval = setInterval(autoplay, 3000);
 
 // creo miniature
 images.forEach((image, index) => {
